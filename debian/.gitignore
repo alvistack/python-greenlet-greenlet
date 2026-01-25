@@ -1,0 +1,7 @@
+*.substvars
+*debhelper*
+.debhelper
+files
+python3-greenlet
+python3-greenlet-dev
+tmp
