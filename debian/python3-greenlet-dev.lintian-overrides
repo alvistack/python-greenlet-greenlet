@@ -1,0 +1,4 @@
+python3-greenlet-dev: copyright-without-copyright-notice
+python3-greenlet-dev: initial-upload-closes-no-bugs
+python3-greenlet-dev: no-manual-page
+python3-greenlet-dev: zero-byte-file-in-doc-directory
