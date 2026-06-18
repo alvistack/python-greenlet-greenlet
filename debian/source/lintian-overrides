@@ -1,0 +1,5 @@
+python-greenlet source: file-without-copyright-information
+python-greenlet source: no-debian-changes
+python-greenlet source: source-contains-prebuilt-windows-binary
+python-greenlet source: source-is-missing
+python-greenlet source: source-package-encodes-python-version
