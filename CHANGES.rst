@@ -5,7 +5,17 @@
 3.5.4 (unreleased)
 ==================
 
-- Nothing changed yet.
+- Fix a crash (segfault) on free-threaded builds of Python 3.14 and
+  later when the garbage collector runs while a greenlet that was
+  started from a non-empty C-stack-reference state is active. A newly
+  started greenlet incorrectly inherited the parent thread state's
+  ``_PyCStackRef`` list head; because those nodes live on the parent
+  greenlet's C stack, they became dangling once the child overwrote
+  that stack region, and the free-threaded collector crashed
+  dereferencing them in ``gc_visit_thread_stacks``. A new greenlet now
+  starts with an empty C-stack-reference list, just like a brand-new
+  thread. See `issue 515
+  <https://github.com/python-greenlet/greenlet/issues/515>`_.
 
 
 3.5.3 (2026-06-26)

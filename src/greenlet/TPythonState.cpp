@@ -332,7 +332,14 @@ void PythonState::set_initial_state(const PyThreadState* const tstate) noexcept
     this->py_recursion_depth = tstate->py_recursion_limit - tstate->py_recursion_remaining;
     this->current_executor = tstate->current_executor;
     #ifdef Py_GIL_DISABLED
-    this->c_stack_refs = ((_PyThreadStateImpl*)tstate)->c_stack_refs;
+    // Start with an empty C-stack-ref list, the way a brand-new thread does;
+    // do NOT copy the parent thread state's head. Those _PyCStackRef nodes sit
+    // on the parent greenlet's C stack, so once we start running on our own
+    // stack and overwrite that region, following them reads garbage. The
+    // free-threaded collector walks c_stack_refs for every thread in
+    // gc_visit_thread_stacks(), so leaving the stale head here crashed it.
+    // See https://github.com/python-greenlet/greenlet/issues/515.
+    this->c_stack_refs = nullptr;
     #endif
     // this->stackpointer is left null because this->_top_frame is
     // null so there is no value to copy.
