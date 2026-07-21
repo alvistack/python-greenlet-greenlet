@@ -36,6 +36,11 @@ class Meta(type):
         # the getattr machinery pins it in a _PyCStackRef across this call. A
         # class is deferred-refcounted on a free-threaded build, so only that
         # (deferred) C-stack ref will be keeping it alive in a moment.
+        #
+        # Drop the locals the descriptor protocol gave us (the class is ``cls``):
+        # greenlet visits a suspended greenlet's frames, so a leftover frame ref
+        # would keep the class alive on its own and mask the bug.
+        del cls, obj, objtype
         child.switch()
         return 42
 
