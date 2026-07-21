@@ -7,25 +7,14 @@
 
 - Fix a crash (segfault) on free-threaded builds of Python 3.14 and
   later when the garbage collector runs while a greenlet that was
-  started from a non-empty C-stack-reference state is active. A newly
-  started greenlet incorrectly inherited the parent thread state's
-  ``_PyCStackRef`` list head; because those nodes live on the parent
-  greenlet's C stack, they became dangling once the child overwrote
-  that stack region, and the free-threaded collector crashed
-  dereferencing them in ``gc_visit_thread_stacks``. A new greenlet now
-  starts with an empty C-stack-reference list, just like a brand-new
-  thread. See `issue 515
+  started from a non-empty C-stack-reference state is active. 
+  See `issue 515
   <https://github.com/python-greenlet/greenlet/issues/515>`_.
 
 - Fix a potential use-after-free on free-threaded builds of Python 3.14
   and later when the garbage collector runs while a greenlet is
   suspended holding a ``_PyCStackRef`` (for example, mid attribute
-  resolution). Those nodes carry deferred references, and the
-  free-threaded collector only visits the running thread's list in
-  ``gc_visit_thread_stacks``, so an object reachable only through a
-  suspended greenlet's C-stack reference could be collected early and
-  used after free on resume. greenlet now snapshots those references
-  when a greenlet suspends and visits them from ``tp_traverse``. See
+  resolution). See
   `issue 515 <https://github.com/python-greenlet/greenlet/issues/515>`_.
 
 
