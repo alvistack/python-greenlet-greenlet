@@ -5,8 +5,11 @@
 3.5.4 (unreleased)
 ==================
 
-- Nothing changed yet.
-
+- Fix a deadlock on free-threaded builds when a greenlet switch happened
+  while a ``PyCriticalSection`` was held -- for example inside asyncio's
+  ``Task.__step``, which holds one on the running task for the duration of
+  the step. See `PR 519 <https://github.com/python-greenlet/greenlet/pull/519/>`. 
+  Thank to ddorian and Kumar Aditya.
 
 3.5.3 (2026-06-26)
 ==================
