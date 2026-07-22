@@ -2,7 +2,7 @@
  Changes
 =========
 
-3.5.4 (unreleased)
+3.5.4 (2026-07-22)
 ==================
 
 - Fix a crash (segfault) on free-threaded builds of Python 3.14 and
