@@ -5,11 +5,25 @@
 3.5.4 (unreleased)
 ==================
 
+- Fix a crash (segfault) on free-threaded builds of Python 3.14 and
+  later when the garbage collector runs while a greenlet that was
+  started from a non-empty C-stack-reference state is active. 
+  See `issue 515
+  <https://github.com/python-greenlet/greenlet/issues/515>`_.
+  Thanks to ddorian and Kumar Aditya.
+
+- Fix a potential use-after-free on free-threaded builds of Python 3.14
+  and later when the garbage collector runs while a greenlet is
+  suspended holding a ``_PyCStackRef`` (for example, mid attribute
+  resolution). See
+  `issue 515 <https://github.com/python-greenlet/greenlet/issues/515>`_.
+  Thanks to ddorian and Kumar Aditya.
+
 - Fix a deadlock on free-threaded builds when a greenlet switch happened
   while a ``PyCriticalSection`` was held -- for example inside asyncio's
   ``Task.__step``, which holds one on the running task for the duration of
   the step. See `PR 519 <https://github.com/python-greenlet/greenlet/pull/519/>`. 
-  Thank to ddorian and Kumar Aditya.
+  Thanks to ddorian and Kumar Aditya.
 
 3.5.3 (2026-06-26)
 ==================
