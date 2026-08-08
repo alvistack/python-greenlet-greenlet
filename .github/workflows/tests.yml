@@ -79,6 +79,12 @@ jobs:
         # expect that some people will compile it themselves with that setting.
         CPPFLAGS: "-Ofast -UNDEBUG -Wall"
         CFLAGS:   "-Ofast -UNDEBUG -Wall"
+        # On Windows this step also produces the wheels we distribute, so
+        # link the C++ runtime statically, the way the Appveyor builds did
+        # through 3.3.0. Without it, _greenlet.pyd imports MSVCP140.dll,
+        # which no Windows CPython distribution ships. setup.py ignores
+        # this everywhere else.
+        GREENLET_STATIC_RUNTIME: "1"
     - name: Install greenlet (Mac)
       if: startsWith(runner.os, 'Mac')
       run: |

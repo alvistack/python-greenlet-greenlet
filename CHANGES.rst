@@ -5,7 +5,12 @@
 3.5.5 (unreleased)
 ==================
 
-- Nothing changed yet.
+- Link the C++ runtime statically into the Windows wheels again, as the
+  Appveyor builds did through 3.3.0. Since 3.3.1 ``_greenlet.pyd``
+  imported ``MSVCP140.dll``, which no Windows CPython distribution ships,
+  so importing greenlet failed on machines without the Visual C++
+  redistributable. See `issue 525
+  <https://github.com/python-greenlet/greenlet/issues/525>`_.
 
 
 3.5.4 (2026-07-22)
