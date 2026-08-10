@@ -10,7 +10,14 @@
   imported ``MSVCP140.dll``, which no Windows CPython distribution ships,
   so importing greenlet failed on machines without the Visual C++
   redistributable. See `issue 525
-  <https://github.com/python-greenlet/greenlet/issues/525>`_.
+  <https://github.com/python-greenlet/greenlet/issues/525>`_. Issue
+  and pull request by Daniel Sticker.
+
+
+.. note::
+   Binary 3.15 wheels are now built with 3.15.0rc1. This should be
+   compatible with future 3.15 releases and is believed compatible
+   with 3.15b4 as well (but not earlier versions).
 
 
 3.5.4 (2026-07-22)
