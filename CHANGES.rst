@@ -2,7 +2,7 @@
  Changes
 =========
 
-3.5.5 (unreleased)
+3.5.5 (2026-08-10)
 ==================
 
 - Link the C++ runtime statically into the Windows wheels again, as the
